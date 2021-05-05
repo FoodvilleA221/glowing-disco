@@ -60,8 +60,6 @@ elif 'open facebook' in query:
     webbrowser.open("https://www.facebook.com/")
 elif 'song one' in query:
     webbrowser.open("https://gaana.com/song/woh-din-arijit-singh-version")
-elif 'Neeraj' in query:
-    Speak("Hello Neeraj.")
 elif 'how are you' in query:
     Speak("I am good.")
 elif '123' in query:

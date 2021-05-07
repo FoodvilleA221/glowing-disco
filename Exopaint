@@ -1,0 +1,104 @@
+from tkinter import *
+from tkinter.colorchooser import askcolor
+root = Tk()
+result = "black"
+print("Thank you for using Super Painter!")
+
+
+def callback():
+    global result
+    res = askcolor(color="#FF0000", title="Bernd's Colour Chooser")
+    # print(res[1])
+    result = res[1]
+
+
+Button(root, text="Choose Colour", fg="darkgreen", command=callback).pack(side=LEFT, padx=10)
+Button(text="Quit", command=root.destroy, fg="red").pack(side=LEFT, padx=10)
+c_width, c_height, colour_change = 500, 150, "black"
+
+
+def paint(event):
+    x1, y1 = (event.x - 2), (event.y - 2)
+    x2, y2 = (event.x + 2), (event.y + 2)
+    w.create_oval(x1, y1, x2, y2, fill=result, width=0)
+
+
+def erase(event):
+    SIZE = 10
+    x1, y1 = (event.x - SIZE), (event.y - SIZE)
+    x2, y2 = (event.x + SIZE), (event.y + SIZE)
+    w.create_oval(x1, y1, x2, y2, fill="white",width=0)
+
+
+def unbind():
+    w.unbind("<B1-Motion>")
+
+
+def bind_paint():
+    w.bind("<B1-Motion>", paint)
+
+
+def bind_erase():
+    w.bind("<B1-Motion>", erase)
+
+
+first_vertex = None
+second_vertex = None
+
+
+def draw_rectangle():
+    def get_point(event):
+        global first_vertex, second_vertex
+        print(event, first_vertex, second_vertex)
+        if first_vertex is None:
+            first_vertex = (event.x, event.y)
+            SIZE = 2
+            x1, y1 = (event.x - SIZE), (event.y - SIZE)
+            x2, y2 = (event.x + SIZE), (event.y + SIZE)
+            w.create_oval(x1, y1, x2, y2, fill="blue")
+            #print("first vertex is now set")
+        elif second_vertex is None:
+            second_vertex = (event.x, event.y)
+            SIZE = 2
+            x1, y1 = (event.x - SIZE), (event.y - SIZE)
+            x2, y2 = (event.x + SIZE), (event.y + SIZE)
+            w.create_oval(x1, y1, x2, y2, fill="blue")
+            #print("second vertex is now set")
+            fvx = first_vertex[0]
+            fvy = first_vertex[1]
+            svx = second_vertex[0]
+            svy = second_vertex[1]
+            points = [fvx, fvy, fvx, svy, svx, svy, svx, fvy]
+            first_vertex = None
+            second_vertex = None
+            w.create_polygon(points, outline="blue", fill="yellow", width=2)
+            w.unbind("<Button-1>")
+    w.bind("<Button-1>", get_point)
+    
+
+
+
+
+
+root.title("Super Painter")
+root.geometry("700x700")
+root.resizable(0, 0)
+root['bg'] = "yellow"
+w = Canvas(root, width=c_width, height=c_height, cursor="dot", background="white")
+w.pack(expand=YES, fill=BOTH, anchor=CENTER)
+bind_paint()
+message = Label(root, text="Press and Drag the mouse to draw")
+message.pack(side=BOTTOM)
+
+# points=[150,100,200,120,240,180,210,200,150,150,100,200]
+# w.create_polygon(points,outline="blue",fill="yellow",width=2)
+# w.create_arc(30,200,90,100,start=0,extent=210,outline="green",fill="red",width=2)
+# w.create_line(100,100,150,100,dash=(4,2))
+# w.create_line(300,100,350,200,350,200,250,200,250,200,300,100)
+# triangle_points=[300,100,350,200,250,200]
+# w.create_polygon(triangle_points,fill="#FF0000",width=2)
+t = Button(root, text="Stop Drawing", command=unbind).pack(anchor=SE)
+t = Button(root, text="Erase", command=bind_erase).pack(anchor=SE)
+t = Button(root, text="Draw Rectangle", command=draw_rectangle).pack(anchor=SE)
+t = Button(root ,text="Start Drawing", command=bind_paint).pack(anchor=SE)
+root.mainloop()

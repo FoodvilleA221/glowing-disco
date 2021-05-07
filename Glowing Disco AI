@@ -1,0 +1,98 @@
+import pyaudio
+import pyttsx3
+import speech_recognition as sr
+import webbrowser
+import os
+import datetime
+Assistant = pyttsx3.init('sapi5')
+voices = Assistant.getProperty("voices")
+Assistant.setProperty('voices',voices[0].id)
+def Speak(audio):
+    print("   ")
+    Assistant.say(audio)
+    print("   ")
+    Assistant.runAndWait()
+    return
+def takecommand():
+    command = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        command.pause_threshold = 1
+        audio = command.listen(source)
+
+        try:
+            print("Recognizing...")
+            query = command.recognize_google(audio,language='en-in')
+            print(f"You Said : {query}")
+
+        except Exception as Error:
+            return "none"
+
+        return query.lower()
+    
+
+Speak("Hello User. I am Robin. How may I help you?")
+query = takecommand()
+if 'open google' in query:
+        os.startfile("C:\Program Files\Google\Chrome\Application\chrome.exe")
+
+elif 'open edge' in query:
+    os.startfile("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
+
+elif 'open youtube' in query:
+    webbrowser.open("https://www.youtube.com/")
+
+elif 'open amazon' in query:
+    webbrowser.open("https://www.amazon.in/")
+elif 'open hotstar' in query:
+    webbrowser.open("https://www.hotstar.com/in")
+elif 'open flower' in query:
+    webbrowser.open("https://www.hotstar.com/in/movies/flubber/1260018196/watch")
+elif 'open github' in query:
+    webbrowser.open("https://github.com/")
+elif 'open mail' in query:
+    webbrowser.open("https://mail.google.com/mail/u/1/#inbox")
+elif 'open hangouts' in query:
+    webbrowser.open("https://hangouts.google.com/?authuser=1")
+elif 'open facebook' in query:
+    webbrowser.open("https://www.facebook.com/")
+elif 'song one' in query:
+    webbrowser.open("https://gaana.com/song/woh-din-arijit-singh-version")
+elif 'neeraj' in query:
+    Speak("Dr. Neeraj is a orthodontic dentist. Who practices in Jalgaon Maharashtra.")
+elif 'how are you' in query:
+    Speak("I am good.")
+elif 'time' in query:
+    webbrowser.open("https://www.google.com/search?q=date+and+time&source=hp&ei=Mm-SYLeQNOH1juMP99CXqAE&iflsig=AINFCbYAAAAAYJJ9Qlh7wKoeQlT34kRVsGpo7odE8s1l&oq=date+and+time&gs_lcp=Cgdnd3Mtd2l6EAMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAOggIABCxAxCDAToICC4QsQMQgwE6CAguEMcBEKMCOg4ILhCxAxCDARDHARCjAjoLCC4QsQMQgwEQkwI6BQguELEDOgIILlDYDljDK2CPMGgAcAB4AYABpgWIAf0YkgELMC43LjMuMS4xLjGYAQCgAQGqAQdnd3Mtd2l6&sclient=gws-wiz&ved=0ahUKEwi38YbKprLwAhXhumMGHXfoBRUQ4dUDCAc&uact=5")
+elif 'greet me' in query:
+    Speak("I compute to serve you my user.")
+elif 'open twitter' in query:
+    webbrowser.open("https://twitter.com/")
+elif 'weather' in query:
+    webbrowser.open("https://www.google.com/search?q=Weather+in+jalgaon&ei=iE-SYLD2HMGa4-EPz5GIqA0&oq=Weather+in+jalgaon&gs_lcp=Cgdnd3Mtd2l6EAMyBwgAEEYQgAIyAggAMgIIADIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeOgcIABBHELADOggIABCxAxCDAToKCAAQsQMQyQMQQzoFCAAQsQM6CAgAELEDEJECOggIABAWEAoQHlDqjgJYp7ECYPa6AmgBcAJ4AIABrAOIAfsWkgEJMC42LjQuMS4xmAEAoAEBqgEHZ3dzLXdpesgBCMABAQ&sclient=gws-wiz&ved=0ahUKEwiw2tCwiLLwAhVBzTgGHc8IAtUQ4dUDCA4&uact=5")
+
+elif 'priti agarwal' in query:
+    Speak("Preeti Agrawal is director of GH Raisoni Institute of Management.")
+
+elif 'good morning' in query:
+    Speak("Good Morning Arin. Have a wonderful day.")
+elif 'good afternoon' in query:
+    Speak("Good Afternoon Arin.")
+elif 'good evening' in query:
+    Speak("Good evening Arin.")
+elif 'good night' in query:
+    Speak("good night arin. sleep tight.")
+elif 'snake game' in query:
+    webbrowser.open("https://www.youtube.com/watch?v=QFvqStqPCRU")
+elif 'open get pod' in query:
+    webbrowser.open("https://gitpod.io/workspaces")
+elif 'open earth' in query:
+    webbrowser.open("https://earth.google.com/web/@0,153.20311343,0a,22251752.77375655d,35y,0h,0t,0r/data=KAE")
+elif 'open code' in query:
+    webbrowser.open("https://code.org/")
+elif 'open calculator' in query:
+    webbrowser.open("https://www.google.com/search?q=calculator&source=hp&ei=hd-UYJ3IBazG4-EPpquF0A8&iflsig=AINFCbYAAAAAYJTtlTyljkRHKSXZfpzDHvoIQWCdvjKi&oq=Cal&gs_lcp=Cgdnd3Mtd2l6EAEYADIICAAQsQMQgwEyBQgAELEDMgUIABCxAzICCAAyBQgAELEDMgUILhCxAzIFCAAQsQMyBQgAELEDMggILhCxAxCDATIFCAAQsQM6CwguELEDEMcBEKMCUMQKWNERYMsgaABwAHgAgAHTAYgBzASSAQUwLjIuMZgBAKABAaoBB2d3cy13aXo&sclient=gws-wiz")
+elif 'hello' in query:
+    Speak("Hello Arin. Hope you are having a good day.")
+elif 'hi' in query:
+    Speak("Hi, Arin.")
